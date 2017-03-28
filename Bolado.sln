@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BVIAutomation.Dashboard", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BVIAutomation.Model", "BVIAutomation.Model\BVIAutomation.Model.csproj", "{AED97E68-7C2E-4F3E-B094-574E4880DA5F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BVIAutomation.Tests", "BVIAutomation.Tests\BVIAutomation.Tests.csproj", "{09C322F0-D9CF-4F9E-9BF3-78C25DD52B8C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{AED97E68-7C2E-4F3E-B094-574E4880DA5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AED97E68-7C2E-4F3E-B094-574E4880DA5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AED97E68-7C2E-4F3E-B094-574E4880DA5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09C322F0-D9CF-4F9E-9BF3-78C25DD52B8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09C322F0-D9CF-4F9E-9BF3-78C25DD52B8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09C322F0-D9CF-4F9E-9BF3-78C25DD52B8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09C322F0-D9CF-4F9E-9BF3-78C25DD52B8C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
