@@ -9,39 +9,53 @@
 @section scripts {
     <script>
         function getTree() {
-            var tree = [
-                  {
-                      text: "Parent 1",
-                      nodes: [
-                        {
-                            text: "Child 1",
-                            nodes: [
-                              {
-                                  text: "Grandchild 1"
-                              },
-                              {
-                                  text: "Grandchild 2"
-                              }
-                            ]
-                        },
-                        {
-                            text: "Child 2"
-                        }
-                      ]
-                  },
-                  {
-                      text: "Parent 2"
-                  },
-                  {
-                      text: "Parent 3"
-                  },
-                  {
-                      text: "Parent 4"
-                  },
-                  {
-                      text: "Parent 5"
-                  }
-            ];
+            var tree;
+            $.ajax({
+                url: 'Home/GetMap',
+                type: 'GET',
+                contentType: 'application/json;',
+                data: JSON.stringify(),
+                success: function (data) {
+                    if (data) {
+                        tree = data;
+                    } else {
+                        alert("Lek");
+                    }
+                }
+            });
+            //var tree = [
+            //      {
+            //          text: "Parent 1",
+            //          nodes: [
+            //            {
+            //                text: "Child 1",
+            //                nodes: [
+            //                  {
+            //                      text: "Grandchild 1"
+            //                  },
+            //                  {
+            //                      text: "Grandchild 2"
+            //                  }
+            //                ]
+            //            },
+            //            {
+            //                text: "Child 2"
+            //            }
+            //          ]
+            //      },
+            //      {
+            //          text: "Parent 2"
+            //      },
+            //      {
+            //          text: "Parent 3"
+            //      },
+            //      {
+            //          text: "Parent 4"
+            //      },
+            //      {
+            //          text: "Parent 5"
+            //      }
+            //];
             return tree;
         };
 

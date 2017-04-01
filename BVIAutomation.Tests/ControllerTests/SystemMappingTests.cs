@@ -23,7 +23,7 @@ namespace BVIAutomation.Tests
 
             var resultJson = obj.GetMap(arrModules);
 
-
+            Assert.IsNotNull(resultJson);
         }
     }
 }
