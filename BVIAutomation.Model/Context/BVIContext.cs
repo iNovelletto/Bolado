@@ -19,74 +19,128 @@ namespace BVIAutomation.Model.Context
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            BuildModule<Module>(modelBuilder);
+            MapEntity<Entities.System>(modelBuilder, BuildSystem);
+            MapEntity<Module>(modelBuilder, BuildModule);
+            MapEntity<User>(modelBuilder, BuildUser);
 
             base.OnModelCreating(modelBuilder);
         }
 
-        private void BuildModule<T>(DbModelBuilder modelBuilder, int index = 0) 
-            where T : Module
-        {       
-            SetPrimaryKey<T>(modelBuilder);            
-
-            modelBuilder.Entity<T>()
-               .Property(_ => _.IdSystem)
-               .HasColumnOrder(++index)
-               .IsRequired();
-
-            modelBuilder.Entity<T>()
-                .Property(_ => _.IdModule)
-                .HasColumnOrder(++index)
-                .IsRequired();
-
-            modelBuilder.Entity<T>()
+        private int BuildSystem(DbModelBuilder modelBuilder, int index)
+        {
+            modelBuilder.Entity<Entities.System>()
                .Property(_ => _.FcName)
                .HasColumnOrder(++index)
                .IsRequired()
                .HasColumnType("varchar(255)");
 
-            BuildEntityBase<T>(index, modelBuilder);
+            return index;
+        }
+
+        private int BuildModule(DbModelBuilder modelBuilder, int index)
+        {
+            var entityConfig = modelBuilder.Entity<Module>();
+
+            entityConfig
+               .Property(_ => _.IdSystem)
+               .HasColumnOrder(++index)
+               .IsRequired();
+
+            entityConfig
+                .Property(_ => _.IdModule)
+                .HasColumnOrder(++index)
+                .IsRequired();
+
+            entityConfig
+               .Property(_ => _.FcName)
+               .HasColumnOrder(++index)
+               .IsRequired()
+               .HasColumnType("varchar(255)");
+
+            return index;
         }       
-        
+
+        private int BuildUser(DbModelBuilder modelBuilder, int index)
+        {
+            var entityConfig = modelBuilder.Entity<User>();
+
+            entityConfig
+              .Property(_ => _.IdUserProfile)
+              .HasColumnOrder(++index)
+              .IsRequired();
+
+            entityConfig
+                .Property(_ => _.FcName)
+               .HasColumnOrder(++index)
+               .IsRequired()
+               .HasColumnType("varchar(255)");
+
+            entityConfig
+               .Property(_ => _.FcEmail)
+               .HasColumnOrder(++index)
+               .IsRequired()
+               .HasColumnType("varchar(255)");
+
+            entityConfig
+              .Property(_ => _.FdLastLogin)
+              .HasColumnOrder(++index)
+              .IsRequired();
+
+            return index;
+        }
+
+        private void MapEntity<T>(DbModelBuilder modelBuilder, Func<DbModelBuilder, int, int> EntityMapAction
+            , int index = 0)
+            where T : EntityBase
+        {
+            SetPrimaryKey<T>(modelBuilder);
+
+            BuildEntityBase<T>(modelBuilder, EntityMapAction(modelBuilder, index));
+        }
+       
         private void SetPrimaryKey<T>(DbModelBuilder modelBuilder)
             where T : EntityBase
         {
-            modelBuilder.Entity<T>()
+            var entityTypeConfig = modelBuilder.Entity<T>();
+
+            entityTypeConfig
               .HasKey(_ => _.Id);
 
-            modelBuilder.Entity<T>()
-              .Property(_ => _.Id)
+            entityTypeConfig
+               .Property(_ => _.Id)
               .HasColumnOrder(0)
               .IsRequired()
               .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
         }
 
-        private void BuildEntityBase<T>(int columnCurrentIndex, DbModelBuilder modelBuilder) 
+        private void BuildEntityBase<T>(DbModelBuilder modelBuilder, int index) 
             where T : EntityBase
         {
-            modelBuilder.Entity<T>()
+            var entityTypeConfig = modelBuilder.Entity<T>();
+
+            entityTypeConfig
                 .Property(_ => _.IdUserInc)
-                .HasColumnOrder(columnCurrentIndex++)
+                .HasColumnOrder(++index)
                 .IsRequired();
 
-            modelBuilder.Entity<T>()
+            entityTypeConfig
                .Property(_ => _.IdUserAlt)
-               .HasColumnOrder(columnCurrentIndex++)
+               .HasColumnOrder(++index)
                .IsRequired();
 
-            modelBuilder.Entity<T>()
+            entityTypeConfig
                .Property(_ => _.FdInc)
-               .HasColumnOrder(columnCurrentIndex++)
+               .HasColumnOrder(++index)
                .IsRequired();
 
-            modelBuilder.Entity<T>()
+            entityTypeConfig
                .Property(_ => _.FdAlt)
-               .HasColumnOrder(columnCurrentIndex++)
+               .HasColumnOrder(++index)
                .IsRequired();
 
-            modelBuilder.Entity<T>()
+            entityTypeConfig
                .Property(_ => _.FbStatus)
-               .HasColumnOrder(columnCurrentIndex)
+               .HasColumnOrder(++index)
                .IsRequired();
         }
     }
